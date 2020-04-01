@@ -1,2 +1,7 @@
 ola k ase
+<<<<<<< HEAD
 que pedo
+=======
+
+prueba de farias
+>>>>>>> 68cb396dd691e5395ee0eac977d5c25634aec9bd
