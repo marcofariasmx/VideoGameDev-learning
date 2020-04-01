@@ -1,0 +1,6 @@
+/build/
+/private/
+*/.DS_Store
+.DS_Store
+build.xml
+/nbproject/private
