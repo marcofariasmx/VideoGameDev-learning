@@ -214,8 +214,8 @@ public class Game implements Runnable {
             else if(lost==1){
                 g.drawImage(Assets.gameover, 0, 0, width, height, null);
             }
-            player.render(g);
             circulo.render(g);
+            player.render(g);
             g.drawString(vidas + lives, 10, 25);
             g.drawString(puntos + score, 10, 50);
             for (Enemy enemy: enemies){

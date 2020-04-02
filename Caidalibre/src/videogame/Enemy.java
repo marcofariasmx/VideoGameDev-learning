@@ -17,6 +17,7 @@ public class Enemy extends Item{
     private int width;
     private int height;
     private Game game;
+    private Animation animationenemyDown;
     
     public Enemy(int x, int y, int direction, int width, int height, Game game) {
         super(x, y);
@@ -24,6 +25,7 @@ public class Enemy extends Item{
         this.width = width;
         this.height = height;
         this.game = game;
+        this.animationenemyDown= new Animation(Assets.enemyDown,100);
     }
 
     public int getDirection() {
@@ -66,10 +68,14 @@ public class Enemy extends Item{
             setY((0-(int)(Math.random()*1000)));
             setX((int)(Math.random()*game.getWidth())-100);
         }
+        
+        this.animationenemyDown.tick();
+        
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.enemy, getX(), getY(), getWidth(), getHeight(), null);
+        //g.drawImage(Assets.enemy, getX(), getY(), getWidth(), getHeight(), null);
+        g.drawImage(animationenemyDown.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
     }
 }
