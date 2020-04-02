@@ -130,6 +130,7 @@ public class Player extends Item{
             if (grabbed) {
                 setX(game.getMouseManager().getX() - getOffsetX());
                 setY(game.getMouseManager().getY() - getOffsetY());
+                /*
                 if((Math.abs(x)+game.getWidth()*1/4)>(Math.abs(y)+getHeight()/2-50))
                 {
                     alpha=(Math.atan(((game.getHeight()/2-50)-Math.abs(y))/(game.getWidth()*1/4)-Math.abs(x)));
@@ -137,9 +138,10 @@ public class Player extends Item{
                 else{
                     alpha=(Math.atan((game.getWidth()*1/4)-Math.abs(x))/((game.getHeight()/2-50)-Math.abs(y)));
                 }
-                
+                */
             }
         }
+        /*
         if(released){
                 potentialElastic=(1/2*(1*(game.getWidth()*1/4)-getX())*(game.getWidth()*1/4)-getX());
                 setVelocityX((Math.sqrt(2*potentialElastic/1))*Math.cos(alpha));
@@ -148,16 +150,35 @@ public class Player extends Item{
                 System.out.println(v0Y);
                 setReleased(false);
         }
+        */
+        
+        //velocidadTiro = ((game.getWidth()/4) - (getX() + 70)) * 10 / (game.getWidth()/4);
+        
         if (getX() < (game.getWidth() / 4)){
             System.out.println("Estamos en ReadyToGoArea");
+            System.out.println("VelocidadTiro = ");
+            System.out.println(velocidadTiro);
+            //System.out.println(getX());
+            //System.out.println(game.getWidth()/4);
+            
             
             //Activamos el tiro parabólico del personaje
-            if(!grabbed){ //cuando lo suelten
+            if(released){ //cuando lo suelten
                 //x=v0·cosθ·t
                 //y=v0·senθ·t-gt2/2
+                
+                velocidadTiro = ((game.getWidth()/4) - (getX() + 70)) * 10 / (game.getWidth()/4);
+        
+                v0X = velocidadTiro;
+                v0Y = velocidadTiro;
+                
                 tiroParabolicoActivado = true;
                 
+                released = false;
+                
             }
+            
+            
             
             
         }
@@ -171,13 +192,13 @@ public class Player extends Item{
             
             //Movimiento en X
             x0 = getX();
-            //setX((int) (x0 + (v0X * tiempoTiroParab)));    
-            setX((int) (x0 + (7 * tiempoTiroParab)));  
+            setX((int) (x0 + (v0X * tiempoTiroParab)));    
+            //setX((int) (x0 + (7 * tiempoTiroParab)));  
             
             //Movimiento en Y
             y0 = getY();
-            //setY((int) (y0 - (v0Y*tiempoTiroParab - (4.9 * tiempoTiroParab * tiempoTiroParab))));
-            setY((int) (y0 - (7*tiempoTiroParab - (4.9 * tiempoTiroParab * tiempoTiroParab))));
+            setY((int) (y0 - (v0Y*tiempoTiroParab - (4.9 * tiempoTiroParab * tiempoTiroParab))));
+            //setY((int) (y0 - (7*tiempoTiroParab - (4.9 * tiempoTiroParab * tiempoTiroParab))));
             
             //Ecuaciones
             https://www.fisicalab.com/apartado/movimiento-parabolico
@@ -193,6 +214,7 @@ public class Player extends Item{
         // moving player depending on flags
         
         // reset x position and y position if colision
+        /*
         if (getX() + 60 >= game.getWidth()) {
             setX(game.getWidth()/4);
             setY(game.getHeight()/2-50);
@@ -212,6 +234,27 @@ public class Player extends Item{
             setY(game.getHeight()/2-50);
             tiroParabolicoActivado = false;
         }
+*/
+        
+        // no permite salirse de al ventana
+        if (getX() + 60 >= game.getWidth()) {
+            setX(game.getWidth() - 60);
+            tiroParabolicoActivado = false; //Terminamos el tiro parabólico 
+        }
+        else if (getX() <= -35) {
+            setX(-35);
+            //setX(getWidth()/2);
+            tiroParabolicoActivado = false; //Terminamos el tiro parabólico
+        }
+        if (getY() + 80 >= game.getHeight()) {
+            setY(game.getHeight() - 80);
+            tiroParabolicoActivado = false; //Terminamos el tiro parabólico
+        }
+        else if (getY() <= -20) {
+            setY(-20);
+            tiroParabolicoActivado = false; //Terminamos el tiro parabólico
+        }
+        
     }
 
     @Override

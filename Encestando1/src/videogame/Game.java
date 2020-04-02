@@ -99,8 +99,8 @@ public class Game implements Runnable {
          display.getJframe().addMouseMotionListener(mouseManager);
          display.getCanvas().addMouseListener(mouseManager);
          display.getCanvas().addMouseMotionListener(mouseManager);
-         Assets.backSound.setLooping(true);
-         Assets.backSound.play();
+         //Assets.backSound.setLooping(true);
+         //Assets.backSound.play();
     }
     
     @Override
@@ -208,6 +208,19 @@ public class Game implements Runnable {
             //for (Ally ally: allies){
               //  ally.render(g);
            // }
+           
+           // display game data
+            g.setColor(Color.WHITE);
+            g.drawString("Enemigos chocados en esta vida: ", 10, 20); // draw number of dropped objects
+            g.drawString("Vidas: " + vidas, getWidth() - 100, 20); // draw number of lives left
+            g.setColor(Color.RED);
+            g.drawString("Score: " + puntos, getWidth() / 2 - 35, 20); // draw score of player
+            
+            //Parte del código para mostrar la línea de Ready To Go
+            //g.fillRect(squareX,squareY,squareW,squareH);
+            g.fillRect(getWidth()/4,0,5,getHeight());
+           
+           
             bs.show();
             g.dispose();
         }
