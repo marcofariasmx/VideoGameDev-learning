@@ -59,7 +59,7 @@ public class Enemy extends Item{
         if (getX() + 60 >= game.getWidth()) {
             setX((int)(Math.random()*game.getWidth())-100);
         }
-        else if (getX() <= -30) {
+        else if (getX() <= 300) {
             setX((int)(Math.random()*game.getWidth())-100);
         }
         if (getY() + 80 >= game.getHeight()) {

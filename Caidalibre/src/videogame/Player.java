@@ -145,11 +145,11 @@ public class Player extends Item{
                //     setVelocityX((Math.sqrt(Math.abs(potentialElastic)))*Math.abs(cosRel));
                //     setVelocityY((Math.sqrt(Math.abs(potentialElastic)))*Math.abs(sinRel));
                 if(y<=(game.getHeight()/2-50)){
-                    v0X=(200-x)*1.0/50;
+                    v0X=(200-x)*1.0/25;
                     v0Y=(((game.getHeight()/2-50)-y)/50);
                 }
                 else{
-                    v0X=(200-x)*1.0/50;
+                    v0X=(200-x)*1.0/25;
                     v0Y=(y/50);
                     
                 }
