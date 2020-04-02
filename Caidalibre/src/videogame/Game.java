@@ -216,6 +216,7 @@ public class Game implements Runnable {
             }
             circulo.render(g);
             player.render(g);
+            g.setColor(Color.WHITE);
             g.drawString(vidas + lives, 10, 25);
             g.drawString(puntos + score, 10, 50);
             for (Enemy enemy: enemies){
