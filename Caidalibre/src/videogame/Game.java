@@ -104,9 +104,9 @@ public class Game implements Runnable {
         // for (int i=1; i<=randomer;i++){
           //   Ally ally= new Ally(((int)(Math.random()*getWidth())-100), (getWidth()+(int)(Math.random()*getHeight())-100),1, 100, 100, this);
             // allies.add(ally);
-        // }
-         player = new Player(getWidth()/4, getHeight()/2-50, 1, 100, 100, this);
+        // 
          circulo= new Ally((getWidth()*1/4)+25, getHeight()/2-30, 1, 50, 50, this);
+         player = new Player(getWidth()/4, getHeight()/2-50, 1, 100, 100, this);
          display.getJframe().addMouseListener(mouseManager);
          display.getJframe().addMouseMotionListener(mouseManager);
          display.getCanvas().addMouseListener(mouseManager);
@@ -214,9 +214,11 @@ public class Game implements Runnable {
             else if(lost==1){
                 g.drawImage(Assets.gameover, 0, 0, width, height, null);
             }
-            player.render(g);
             circulo.render(g);
+            player.render(g);
+            g.setColor(Color.WHITE);
             g.drawString(vidas + lives, 10, 25);
+            g.setColor(Color.WHITE);
             g.drawString(puntos + score, 10, 50);
             for (Enemy enemy: enemies){
                 enemy.render(g);
