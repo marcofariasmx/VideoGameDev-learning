@@ -99,6 +99,9 @@ public class Player extends Item{
     public void setOffsetY(int offsetY) {
         this.offsetY = offsetY;
     }
+    public void setTiroParabolico(boolean tiro){
+        tiroParabolicoActivado=tiro;
+    }
 
     public int getDirection() {
         return direction;
@@ -194,7 +197,7 @@ public class Player extends Item{
             setY((int) (y0 - (v0Y*tiempoTiroParab - (4.9 * tiempoTiroParab * tiempoTiroParab))));
             
             //Ecuaciones
-            https://www.fisicalab.com/apartado/movimiento-parabolico
+            //https://www.fisicalab.com/apartado/movimiento-parabolico
             
             //Actualizamos tiempo
             tiempoTiroParab = tiempoTiroParab + .02;
@@ -211,6 +214,7 @@ public class Player extends Item{
             setX(game.getWidth()/4);
             setY(game.getHeight()/2-50);
             tiroParabolicoActivado = false;
+            game.setcolisiones(game.getcolisiones()+1);
         }
         else if (getX() <= -30) {
             setX(-30);
@@ -219,11 +223,13 @@ public class Player extends Item{
         if (getY() + 80 >= game.getHeight()) {
             setX(game.getWidth()/4);
             setY(game.getHeight()/2-50);
+            game.setcolisiones(game.getcolisiones()+1);
             tiroParabolicoActivado = false;
         }
         else if (getY() <= -20) {
             setX(game.getWidth()/4);
             setY(game.getHeight()/2-50);
+            game.setcolisiones(game.getcolisiones()+1);
             tiroParabolicoActivado = false;
         }
     }

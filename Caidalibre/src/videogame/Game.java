@@ -48,7 +48,7 @@ public class Game implements Runnable {
         this.height = height;
         running = false;
         mouseManager = new MouseManager(this);
-        this.lives=(int)(Math.random() * 2) + 5;
+        this.lives=5;
         this.score=0;
         this.lost=0;
     }
@@ -74,6 +74,18 @@ public class Game implements Runnable {
     public int getHeight() {
         return height;
     }
+    public int getlives(){
+        return lives;
+    }
+    public void setlives(int livess){
+        this.lives=livess;
+    }
+    public int getcolisiones(){
+        return contColisiones;
+    }
+    public void setcolisiones(int livsess){
+        this.contColisiones=livsess;
+    }
     
     /**
      * initializing the display window of the game
@@ -94,7 +106,7 @@ public class Game implements Runnable {
             // allies.add(ally);
         // }
          player = new Player(getWidth()/4, getHeight()/2-50, 1, 100, 100, this);
-         circulo= new Ally(getWidth()*1/4, getHeight()/2-50, 1, 50, 50, this);
+         circulo= new Ally((getWidth()*1/4)+25, getHeight()/2-30, 1, 50, 50, this);
          display.getJframe().addMouseListener(mouseManager);
          display.getJframe().addMouseMotionListener(mouseManager);
          display.getCanvas().addMouseListener(mouseManager);
@@ -145,25 +157,29 @@ public class Game implements Runnable {
         for(Enemy enemy:enemies){
             enemy.tick();
             if(player.collision(enemy)){
-                contColisiones++;
-                Assets.no.play();
+                Assets.nice.play();
                 enemy.setY((0-(int)(Math.random()*1000)));
                 player.setX(getWidth()/4);
                 player.setY(getHeight()/2-50);
                 enemy.setX((int)(Math.random()*(getWidth()*3/5))+(getWidth()*2/5));
-                if(contColisiones==3){
-                    if (lives>1){
-                        lives=lives-1;
-                        contColisiones=0;
-                    }
-                    else{
-                        lives=0;
-                        lost=1;
-                        enemies.clear();
-                        //allies.clear();
-                        Assets.backSound.stop();
-                    }
+                player.setTiroParabolico(false);
+                score=score+10;
+                if(score%50==0){
+                    lives++;
                 }
+                
+            }
+        }
+        if(contColisiones==3){
+            if (lives>1){
+                lives=lives-1;
+                contColisiones=0;
+            }
+            else{
+                lives=0;
+                lost=1;
+                enemies.clear();
+                Assets.backSound.stop();
             }
         }
         //for(Ally ally:allies){
