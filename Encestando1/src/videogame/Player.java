@@ -44,7 +44,7 @@ public class Player extends Item{
         grabbed = false;
         released= false;
         tiroParabolicoActivado = false;
-        velocidadTiro = 1;
+        velocidadTiro = 0;
         gradosTiro = 45;
         tiempoTiroParab = 0;
         x0 = 0;
@@ -171,11 +171,13 @@ public class Player extends Item{
             
             //Movimiento en X
             x0 = getX();
-            setX((int) (x0 + (v0X * tiempoTiroParab)));            
+            //setX((int) (x0 + (v0X * tiempoTiroParab)));    
+            setX((int) (x0 + (7 * tiempoTiroParab)));  
             
             //Movimiento en Y
             y0 = getY();
-            setY((int) (y0 - (v0Y*tiempoTiroParab - (4.9 * tiempoTiroParab * tiempoTiroParab))));
+            //setY((int) (y0 - (v0Y*tiempoTiroParab - (4.9 * tiempoTiroParab * tiempoTiroParab))));
+            setY((int) (y0 - (7*tiempoTiroParab - (4.9 * tiempoTiroParab * tiempoTiroParab))));
             
             //Ecuaciones
             https://www.fisicalab.com/apartado/movimiento-parabolico

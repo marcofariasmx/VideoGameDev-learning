@@ -312,6 +312,11 @@ public class Game implements Runnable {
             g.setColor(Color.RED);
             g.drawString("Score: " + puntos, getWidth() / 2 - 35, 20); // draw score of player
             
+            //Parte del código para mostrar la línea de Ready To Go
+            //g.fillRect(squareX,squareY,squareW,squareH);
+            g.fillRect(getWidth()/5,0,5,getHeight());
+            
+            
             
             bs.show();
             g.dispose();

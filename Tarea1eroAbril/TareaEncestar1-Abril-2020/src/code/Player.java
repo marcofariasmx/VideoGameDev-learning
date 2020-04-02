@@ -60,8 +60,8 @@ public class Player extends Item{
         tiempoTiroParab = 0;
         x0 = 0;
         y0 = 0;
-        v0x = 5;
-        v0y = 5;
+        v0x = 7;
+        v0y = 7;
     }
 
     public void setGrabbed(boolean grabbed) {
