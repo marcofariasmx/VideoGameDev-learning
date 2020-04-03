@@ -18,6 +18,7 @@ public class Background {
     protected int height;   // to store height
     private Game game; // the game to which it belongs
     private Animation animationPlay; // animation when playing
+    private Animation animationPause; // animation when paused
     
     public Background(int width, int height, Game game) {
         this.width = width;
@@ -56,6 +57,11 @@ public class Background {
     public void render(Graphics g, int status) {
         if (status == 0) { // game is running
             g.drawImage(animationPlay.getCurrentFrame(), 0, 0, getWidth(), getHeight(), null); // paint animation of running game
+        }
+        else if (status == 2) { // game is paused
+            g.drawImage(animationPause.getCurrentFrame(), 0, 0, getWidth(), getHeight(), null); // paintanimation of paused game
+            
+            
         }
         else if (status == 1) { // game over
             g.drawImage(Assets.gameover, 0, 0, getWidth(), getHeight(), null); // paint game over screen

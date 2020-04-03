@@ -49,7 +49,7 @@ public class Game implements Runnable {
         this.height = height;
         running = false;
         keyManager = new KeyManager();
-        this.lives=(int)(Math.random() * 2) + 5;
+        this.lives=(int)(Math.random() * 2) + 1;
         this.score=0;
         this.lost=0;
     }
@@ -132,20 +132,37 @@ public class Game implements Runnable {
 
     private void tick() {
         // avancing player with colision
-        background.tick(lost);
         keyManager.tick();
         paddle.tick();
         ball.tick();
-        if (ball.getY() > 390) {
-            //stopGame();
+        background.tick(lost);
+        if (ball.getY() > 450) {
+            lives=lives-1;
+            ball.setX(230);
+            ball.setY(355);
+            ball.setXDir(1);
+            ball.setYDir(-1);
+            paddle.setX(200);
+            paddle.setY(355);
+            if(lives<1){
+                Assets.no.play();
+                lost=1;
+                background.tick(lost);
+                paddle.setX(830);
+                paddle.setY(855);
+                bricks.clear();
+                running=false;
+            }
         }
         if (contColisiones==30){
+            Assets.nice.play();
             
         }
         for(Brick brick:bricks){
             brick.tick();
             if(!brick.isDestroyed()){
                 if(ball.collision(brick)){
+                    Assets.gunShot.play();
                     int ballLeft = (int) ball.getX();
                     int ballHeight = 5;
                     int ballWidth = 5;
@@ -244,8 +261,8 @@ public class Game implements Runnable {
             background.render(g, lost);
             paddle.render(g);
             ball.render(g);
-            g.drawString(vidas + lives, 10, 25);
-            g.drawString(puntos + score, 10, 50);
+            g.drawString(vidas + lives, 20, 15);
+            g.drawString(puntos + score, 220, 15);
             for (Brick brick: bricks){
                 if(!brick.isDestroyed()){
                     brick.render(g);
