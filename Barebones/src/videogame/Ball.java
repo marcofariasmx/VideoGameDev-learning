@@ -42,6 +42,11 @@ public class Ball extends Item{
 
         return ydir;
     }
+    
+    int getXDir() {
+
+        return xdir;
+    }
 
     public int getWidth() {
         return width;

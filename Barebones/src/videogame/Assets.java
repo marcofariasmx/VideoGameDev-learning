@@ -19,7 +19,8 @@ public class Assets {
     public static BufferedImage paddle;     // to store the player image
     public static BufferedImage brick;
     public static BufferedImage ball;
-    public static BufferedImage gameover;
+    public static BufferedImage gameOver;
+    public static BufferedImage youWin;
     public static SoundClip backSound;
     public static SoundClip gunShot;
     public static SoundClip nice;
@@ -39,6 +40,8 @@ public class Assets {
         }
         paddle = ImageLoader.loadImage("/images/paddle.png");
         brick=ImageLoader.loadImage("/images/brick.png");
+        gameOver=ImageLoader.loadImage("/images/gameover.png");
+        youWin=ImageLoader.loadImage("/images/youWin.png");
         ball=ImageLoader.loadImage("/images/ball.png");
         backSound = new SoundClip("/sounds/back.wav");
         gunShot = new SoundClip("/sounds/Gunshot.wav");

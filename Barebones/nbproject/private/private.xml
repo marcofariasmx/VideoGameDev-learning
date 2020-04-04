@@ -3,12 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/MARBROCU/Documents/GitHub/Examen2Videojuegos/ClaseVideojuegos/Barebones/src/videogame/ImageLoader.java</file>
-            <file>file:/C:/Users/MARBROCU/Documents/GitHub/Examen2Videojuegos/ClaseVideojuegos/Barebones/src/videogame/Game.java</file>
-            <file>file:/C:/Users/MARBROCU/Documents/GitHub/Examen2Videojuegos/ClaseVideojuegos/Barebones/src/videogame/Brick.java</file>
-            <file>file:/C:/Users/MARBROCU/Documents/GitHub/Examen2Videojuegos/ClaseVideojuegos/Barebones/src/videogame/Background.java</file>
-            <file>file:/C:/Users/MARBROCU/Documents/GitHub/Examen2Videojuegos/ClaseVideojuegos/Barebones/src/videogame/Assets.java</file>
-            <file>file:/C:/Users/MARBROCU/Documents/GitHub/Examen2Videojuegos/ClaseVideojuegos/Barebones/src/videogame/Ball.java</file>
+            <file>file:/Users/mx/Google%20Drive/Tec%20de%20monterrey/04%20-%20Cuarto%20semestre/Videojuegos/Examen2/Barebones/src/videogame/Game.java</file>
+            <file>file:/Users/mx/Google%20Drive/Tec%20de%20monterrey/04%20-%20Cuarto%20semestre/Videojuegos/Examen2/Barebones/src/videogame/ReadandWrite.java</file>
+            <file>file:/Users/mx/Google%20Drive/Tec%20de%20monterrey/04%20-%20Cuarto%20semestre/Videojuegos/Examen2/Barebones/src/videogame/KeyManager.java</file>
+            <file>file:/Users/mx/Google%20Drive/Tec%20de%20monterrey/04%20-%20Cuarto%20semestre/Videojuegos/Examen2/Barebones/src/videogame/Paddle.java</file>
+            <file>file:/Users/mx/Google%20Drive/Tec%20de%20monterrey/04%20-%20Cuarto%20semestre/Videojuegos/Examen2/Barebones/src/videogame/Brick.java</file>
+            <file>file:/Users/mx/Google%20Drive/Tec%20de%20monterrey/04%20-%20Cuarto%20semestre/Videojuegos/Examen2/Barebones/src/videogame/Animation.java</file>
+            <file>file:/Users/mx/Google%20Drive/Tec%20de%20monterrey/04%20-%20Cuarto%20semestre/Videojuegos/Examen2/Barebones/src/videogame/VideoGame.java</file>
+            <file>file:/Users/mx/Google%20Drive/Tec%20de%20monterrey/04%20-%20Cuarto%20semestre/Videojuegos/Examen2/Barebones/src/images/gameover.png</file>
+            <file>file:/Users/mx/Google%20Drive/Tec%20de%20monterrey/04%20-%20Cuarto%20semestre/Videojuegos/Examen2/Barebones/src/videogame/Ball.java</file>
+            <file>file:/Users/mx/Google%20Drive/Tec%20de%20monterrey/04%20-%20Cuarto%20semestre/Videojuegos/Examen2/Barebones/src/videogame/Background.java</file>
+            <file>file:/Users/mx/Google%20Drive/Tec%20de%20monterrey/04%20-%20Cuarto%20semestre/Videojuegos/Examen2/Barebones/src/videogame/Assets.java</file>
         </group>
     </open-files>
 </project-private>

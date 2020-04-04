@@ -13,7 +13,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author antoniomejorado
+ * @author LosMarcos
  */
 public class Game implements Runnable {
     private BufferStrategy bs;      // to have several buffers when displaying
@@ -35,6 +35,7 @@ public class Game implements Runnable {
     static int contColisiones=0;
     String vidas = "Vidas = ";
     String puntos = "Puntaje = ";
+    private ReadandWrite Archivo;
     
     
     /**
@@ -53,9 +54,43 @@ public class Game implements Runnable {
         this.score=0;
         this.lost=0;
     }
-    public Paddle getPlayer() {
+    public Paddle getPaddle() {
         return paddle;
     }
+    
+    public Ball getBall() {
+        return ball;
+    }
+    
+    
+    public int getNumVidas() {
+        return lives;
+    }
+    
+    public void setNumVidas(int vidas){
+        lives = vidas;
+    }
+    
+    public int getScore() {
+        return score;
+    }
+    
+    public void setScore(int puntuacion){
+        score = puntuacion;
+    }
+    
+    public void setBall(Ball ballToSet){
+        ball=ballToSet;
+    }
+    
+    public LinkedList <Brick> getBricks(){
+        return bricks;
+    }
+    
+    public void setBricks(LinkedList <Brick> bricksToSet){
+        bricks = bricksToSet;
+    }
+    
     /**
      * To get the width of the game window
      * @return an <code>int</code> value with the width
@@ -122,6 +157,11 @@ public class Game implements Runnable {
                 delta --;
             }
         }
+        
+        //Agregamos esto para que corra un último ciclo después de perder y alcance a actualizar.
+        tick();
+        render();
+        
         stop();
     }
 
@@ -147,7 +187,9 @@ public class Game implements Runnable {
             if(lives<1){
                 Assets.no.play();
                 lost=1;
-                background.tick(lost);
+                //background.render(g,lost);
+                //background.tick(lost);
+                System.out.println("Ya se PERDIÓ"); 
                 paddle.setX(830);
                 paddle.setY(855);
                 bricks.clear();
@@ -239,6 +281,14 @@ public class Game implements Runnable {
 //bricks.clear();
 //allies.clear();
 //Assets.backSound.stop();
+
+        if(this.getKeyManager().save){
+            Archivo.Save("DatosJuegoEx2.txt",this);
+        }
+        if(this.getKeyManager().load){
+            bricks.clear();
+            Archivo.Load("DatosJuegoEx2.txt",this);
+        }
         
         
     }
@@ -257,28 +307,42 @@ public class Game implements Runnable {
         }
         else
         {
+            
             g = bs.getDrawGraphics();
-            background.render(g, lost);
-            paddle.render(g);
-            ball.render(g);
-            g.drawString(vidas + lives, 20, 15);
-            g.drawString(puntos + score, 220, 15);
-            for (Brick brick: bricks){
-                if(!brick.isDestroyed()){
-                    brick.render(g);
-                }
+            
+            if(lives < 1){
+                g.drawImage(Assets.gameOver, 0, 0, getWidth(), getHeight(), null);
+                System.out.println("Sí entró el render de gamOver"); 
+                
             }
-            //for (Ball ally: allies){
-              //  ally.render(g);
-           // }
-            bs.show();
-            g.dispose();
+            else if(score == 300){
+                g.drawImage(Assets.youWin, 0, 0, getWidth(), getHeight(), null);
+                running=false;
+            }
+            else{
+                
+                background.render(g, lost);
+            }       
+            paddle.render(g);
+                ball.render(g);
+                g.drawString(vidas + lives, 20, 15);
+                g.drawString(puntos + score, 220, 15);
+                for (Brick brick: bricks){
+                    if(!brick.isDestroyed()){
+                        brick.render(g);
+                    }
+                }
+                //for (Ball ally: allies){
+                  //  ally.render(g);
+               // }
+                bs.show();
+                g.dispose();
         }
        
     }
     
     /**
-     * setting the thead for the game
+     * setting the trhead for the game
      */
     public synchronized void start() {
         if (!running) {

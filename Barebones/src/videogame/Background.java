@@ -64,7 +64,7 @@ public class Background {
             
         }
         else if (status == 1) { // game over
-            g.drawImage(Assets.gameover, 0, 0, getWidth(), getHeight(), null); // paint game over screen
+            g.drawImage(Assets.gameOver, 0, 0, getWidth(), getHeight(), null); // paint game over screen
         }
         
     }
