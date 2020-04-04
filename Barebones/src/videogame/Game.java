@@ -25,17 +25,17 @@ public class Game implements Runnable {
     private Thread thread;          // thread to create the game
     private boolean running;        // to set the game
     private Paddle paddle;          // to use a player
-    private Ball ball;
-    private LinkedList <Brick> bricks;
+    private Ball ball;              //use as the ball
+    private LinkedList <Brick> bricks;//create all the bricks
     private KeyManager keyManager;  // to manage the keyboard
-    private int lives;
-    private int score;
-    private int lost;
-    private Background background; 
-    static int contColisiones=0;
-    String vidas = "Vidas = ";
-    String puntos = "Puntaje = ";
-    private ReadandWrite Archivo;
+    private int lives;              //SAVE THE LIVES
+    private int score;              //save the score
+    private int lost;               //boolean if lost
+    private Background background;  //Bckground obect to save it
+    static int contColisiones=0;    //save quantity of collisins to finish the game
+    String vidas = "Vidas = ";      //titles in game
+    String puntos = "Puntaje = ";   //titles in game
+    private ReadandWrite Archivo;   //saver
     
     
     /**
@@ -54,45 +54,48 @@ public class Game implements Runnable {
         this.score=0;
         this.lost=0;
     }
+    //returns th paddle of the game
     public Paddle getPaddle() {
         return paddle;
     }
-    
+    // returns the ball of game
     public Ball getBall() {
         return ball;
     }
     
-    
+    //return quantity of lives
     public int getNumVidas() {
         return lives;
     }
+    //return quantity of collisions
     public int getContColisiones(){
         return contColisiones;
     }
+    //sets quantity of collisions
     public void setContColisiones(int x){
         contColisiones=x;
     }
-    
+    //sets number of lives
     public void setNumVidas(int vidas){
         lives = vidas;
     }
-    
+    //returns the score of the game
     public int getScore() {
         return score;
     }
-    
+    //sets the score of the game
     public void setScore(int puntuacion){
         score = puntuacion;
     }
-    
+    //sets the ball to another ball
     public void setBall(Ball ballToSet){
         ball=ballToSet;
     }
-    
+    //gets the LL of bricks
     public LinkedList <Brick> getBricks(){
         return bricks;
     }
-    
+    //sets the brick to the properties of other bricks
     public void setBricks(LinkedList <Brick> bricksToSet){
         bricks = bricksToSet;
     }
@@ -119,13 +122,13 @@ public class Game implements Runnable {
     private void init() {
         display = new Display(title, getWidth(), getHeight());
         Assets.init();
-        display.getJframe().addKeyListener(keyManager);
+        display.getJframe().addKeyListener(keyManager);// right or left of paddle
         background = new Background(getWidth(), getHeight(), this);
         paddle = new Paddle(200,360,1, 40, 10, this);
         ball= new Ball(230,355 , 1, -1, 5, 5, this);
         Assets.backSound.setLooping(true);
         //Assets.backSound.play();
-        bricks= new LinkedList();
+        bricks= new LinkedList();//creation of 30 bricks
             for (int l = 0; l < 5; l++) 
             {
                 for (int j = 0; j < 6; j++) {
@@ -182,6 +185,7 @@ public class Game implements Runnable {
         paddle.tick();
         ball.tick();
         background.tick(lost);
+        //ball goes below paddle
         if (ball.getY() > 450) {
             lives=lives-1;
             ball.setX(230);
@@ -191,6 +195,7 @@ public class Game implements Runnable {
             paddle.setX(200);
             paddle.setY(355);
             if(lives<1){
+                //if the game is lost
                 Assets.no.play();
                 lost=1;
                 //background.render(g,lost);
@@ -204,81 +209,91 @@ public class Game implements Runnable {
                 running=false;
             }
         }
+        //if the game is won
         if (contColisiones==30){
             Assets.nice.play();
             bricks.clear();
         }
+        //ticks of every brick
         for(Brick brick:bricks){
             brick.tick();
+            //only if the brick is still there
             if(!brick.isDestroyed()){
                 if(ball.collision(brick)){
                     Assets.gunShot.play();
+                    //sound of gunshot when broken
+                    //create parts of the ball
                     int ballLeft = (int) ball.getX();
                     int ballHeight = 5;
                     int ballWidth = 5;
                     int ballTop = (int) ball.getY();
-
+                    //create point to contain for every hit with the ball
                     Point pointRight = new Point(ballLeft + ballWidth + 1, ballTop);
                     Point pointLeft = new Point(ballLeft - 1, ballTop);
                     Point pointTop = new Point(ballLeft, ballTop - 1);
                     Point pointBottom = new Point(ballLeft, ballTop + ballHeight + 1);
-
+                        //colision with ball and sets direction
                         if (brick.getRect(brick.getX(),brick.getY(),40,10).contains(pointRight)) {
 
                            ball.setXDir(-1);
-                        } else if (brick.getRect(brick.getX(),brick.getY(),40,10).contains(pointLeft)) {
+                        } 
+                        //colision with ball and sets direction
+                        else if (brick.getRect(brick.getX(),brick.getY(),40,10).contains(pointLeft)) {
 
                             ball.setXDir(1);
                         }
-
+                        //colision with ball and sets direction
                         if (brick.getRect(brick.getX(),brick.getY(),40,10).contains(pointTop)) {
 
                             ball.setYDir(1);
-                        } else if (brick.getRect(brick.getX(),brick.getY(),40,10).contains(pointBottom)) {
+                        } 
+                        //colision with ball and sets direction
+                        else if (brick.getRect(brick.getX(),brick.getY(),40,10).contains(pointBottom)) {
 
                             ball.setYDir(-1);
                         }
-                    brick.setDestroyed(true);
-                    contColisiones++;
-                    score=score+10;
+                    brick.setDestroyed(true);//set the one that crashed as destroyed
+                    contColisiones++;//sum the number of colisions as one more
+                    score=score+10;//add score
                     
                 }
             }
         }
+        //when the ball hits the paddle
         if(ball.collision(paddle)){
-            int paddleLPos = (int) paddle.getX();
-            int ballLPos = (int) ball.getX();
+            int paddleLPos = (int) paddle.getX();//variable og the pos of paddle
+            int ballLPos = (int) ball.getX();//variable of ball pos
 
-            int first = paddleLPos + 8;
+            int first = paddleLPos + 8;//divide the paddle for different directions
             int second = paddleLPos + 16;
             int third = paddleLPos + 24;
             int fourth = paddleLPos + 32;
 
-            if (ballLPos < first) {
+            if (ballLPos < first) {//first changes both values of direction
 
                 ball.setXDir(-1);
                 ball.setYDir(-1);
             }
 
-            if (ballLPos >= first && ballLPos < second) {
+            if (ballLPos >= first && ballLPos < second) {// changes both values of direction depending
 
                 ball.setXDir(-1);
                 ball.setYDir(-1 * ball.getYDir());
             }
 
-            if (ballLPos >= second && ballLPos < third) {
+            if (ballLPos >= second && ballLPos < third) {// changes both values of direction depending
 
                 ball.setXDir(0);
                 ball.setYDir(-1);
             }
 
-            if (ballLPos >= third && ballLPos < fourth) {
+            if (ballLPos >= third && ballLPos < fourth) {// changes both values of direction depending
 
                 ball.setXDir(1);
                 ball.setYDir(-1 * ball.getYDir());
             }
 
-            if (ballLPos > fourth) {
+            if (ballLPos > fourth) {// changes both values of direction depending
 
                 ball.setXDir(1);
                 ball.setYDir(-1);
@@ -290,10 +305,10 @@ public class Game implements Runnable {
 //allies.clear();
 //Assets.backSound.stop();
 
-        if(this.getKeyManager().save){
+        if(this.getKeyManager().save){//saves the game with current properties
             Archivo.Save("DatosJuegoEx2.txt",this);
         }
-        if(this.getKeyManager().load){
+        if(this.getKeyManager().load){//load the game of the file
             bricks.clear();
             Archivo.Load("DatosJuegoEx2.txt",this);
         }
@@ -317,12 +332,13 @@ public class Game implements Runnable {
         {
             
             g = bs.getDrawGraphics();
-            
+            //render if lost
             if(lives < 1){
                 g.drawImage(Assets.gameOver, 0, 0, getWidth(), getHeight(), null);
                 System.out.println("Sí entró el render de gamOver"); 
                 
             }
+            //render if won
             else if(score == 300){
                 g.drawImage(Assets.youWin, 0, 0, getWidth(), getHeight(), null);
                 running=false;
@@ -340,9 +356,6 @@ public class Game implements Runnable {
                         brick.render(g);
                     }
                 }
-                //for (Ball ally: allies){
-                  //  ally.render(g);
-               // }
                 bs.show();
                 g.dispose();
         }

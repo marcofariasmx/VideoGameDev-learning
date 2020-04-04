@@ -9,14 +9,14 @@ import java.awt.Graphics;
 
 /**
  *
- * @author antoniomejorado
+ * @author Marcos
  */
 public class Paddle extends Item{
 
-    private int direction;
-    private int width;
-    private int height;
-    private Game game;
+    private int direction;  //direction of paddle
+    private int width;      //saves width of paddle
+    private int height;     //saves height of paddle
+    private Game game;      //game it represents
     
     
     public Paddle(int x, int y, int direction, int width, int height, Game game) {
@@ -26,27 +26,27 @@ public class Paddle extends Item{
         this.height = height;
         this.game = game;
     }
-
+    //gets direction
     public int getDirection() {
         return direction;
     }
-
+    //gets width of paddle
     public int getWidth() {
         return width;
     }
-
+    //GET Height of paddle
     public int getHeight() {
         return height;
     }
-
+    //sets direction of paddle
     public void setDirection(int direction) {
         this.direction = direction;
     }
-
+    //sets width of paddle
     public void setWidth(int width) {
         this.width = width;
     }
-
+    //sets height of paddle
     public void setHeight(int height) {
         this.height = height;
     }
@@ -54,14 +54,15 @@ public class Paddle extends Item{
 
     @Override
     public void tick() {
-
+        //moving to the left
         if (game.getKeyManager().left) {
            setX(getX() - 1);
         }
+        //moving to the right
         if (game.getKeyManager().right) {
            setX(getX() + 1);         
         }
-
+        //borders of the game
         if (getX() + 20 >= game.getWidth()) {
             setX(game.getWidth()-20);
         }

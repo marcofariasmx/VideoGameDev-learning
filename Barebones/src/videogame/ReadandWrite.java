@@ -21,7 +21,7 @@ import java.util.LinkedList;
  */
 public class ReadandWrite {
     private Game game;
-    String strFileName;
+    String strFileName;//name of the file
     public ReadandWrite(String strFileName,Game game){
         this.strFileName=strFileName;
         this.game = game;
@@ -29,31 +29,28 @@ public class ReadandWrite {
     
     public static void Save(String strFileName,Game game) {
         try {
-            PrintWriter writer = new PrintWriter(new FileWriter(strFileName));
-            int contBricks=0;
-            int xBrick;
+            PrintWriter writer = new PrintWriter(new FileWriter(strFileName));//name of the fil in new writer
+            int contBricks=0;//counter of bricks
+            int xBrick;//positions of bricks
             int yBrick;
-            Paddle paddle = game.getPaddle();
-            int xPaddle = paddle.getX();
-            int yPaddle = paddle.getY();
-            //int xamigo;
-            //int yamigo;
-            int contAmigos=0;
-            Ball ball = game.getBall();
-            int vidas = game.getNumVidas();
-            int score = game.getScore();
-            int xBall=ball.getX();
+            Paddle paddle = game.getPaddle();//storing the paddle
+            int xPaddle = paddle.getX();//x of paddle
+            int yPaddle = paddle.getY();//y of paddle
+            Ball ball = game.getBall();//store the ball of game
+            int vidas = game.getNumVidas();//store the lives in game
+            int score = game.getScore();//store the score in game
+            int xBall=ball.getX();//store position of ball in game
             int yBall=ball.getY();
-            int xDirBall = ball.getXDir();
+            int xDirBall = ball.getXDir();//store the direction of the ball
             int yDirBall = ball.getYDir();
-            int contColisiones= game.getContColisiones();
+            int contColisiones= game.getContColisiones();//store the quantity of collisions
             
-            LinkedList <Brick> bricks = game.getBricks();
+            LinkedList <Brick> bricks = game.getBricks();// sotres bricks
             
             //Capturamos datos iniciales como vidas, score y posición de la bola
             writer.print("" + vidas + "/" + score +"/"+xBall+"/"+yBall+"/"+xDirBall+"/"+yDirBall+"/"+xPaddle+"/"+yPaddle+"/");
             for (Brick brick: bricks){
-                if(!brick.isDestroyed()){
+                if(!brick.isDestroyed()){//only no destroyed bricks
                     contBricks++;
                 }
             }
@@ -78,47 +75,37 @@ public class ReadandWrite {
     public static void Load(String strFileName,Game game) {
         try {
             int contadori = 0;
-            int xBrick;
-            int yBrick;
-            //int xamigo;
-            //int yamigo;
-            Ball ball=game.getBall();
-            Paddle paddle = game.getPaddle();
+            //initializae all the objects used
+            Ball ball=game.getBall();// new ball
+            Paddle paddle = game.getPaddle();//new paddle
             
-            LinkedList <Brick> bricks;
+            LinkedList <Brick> bricks;//new list of bricks
             bricks= new LinkedList();
-            //LinkedList <Friend> friends=game.getFriends();
-            FileReader file = new FileReader(strFileName);
+            FileReader file = new FileReader(strFileName);//get the file
             BufferedReader reader = new BufferedReader(file);
             String line;
             String datos[];
             line = reader.readLine();
             datos = line.split("/");
-            int vidas = Integer.parseInt(datos[0]);
-            int score = Integer.parseInt(datos[1]);
-            int xBall= Integer.parseInt(datos[2]);
-            int yBall= Integer.parseInt(datos[3]);
-            int xDirBall= Integer.parseInt(datos[4]);
+            //everything stored in the file
+            int vidas = Integer.parseInt(datos[0]);//vidas
+            int score = Integer.parseInt(datos[1]);//score
+            int xBall= Integer.parseInt(datos[2]);//ball position
+            int yBall= Integer.parseInt(datos[3]);//
+            int xDirBall= Integer.parseInt(datos[4]);//direction of the ball
             int yDirBall= Integer.parseInt(datos[5]);
-            int xPaddle= Integer.parseInt(datos[6]);
+            int xPaddle= Integer.parseInt(datos[6]);//position of the paddle
             int yPaddle= Integer.parseInt(datos[7]);
-            int contBricks= Integer.parseInt(datos[8]);
-            int contColisiones= Integer.parseInt(datos[9]);
+            int contBricks= Integer.parseInt(datos[8]);//number of bricks and properties in for
             for(int i=0; i<contBricks; i++){
                 Brick brick= new Brick(Integer.parseInt(datos[9+2*i]),Integer.parseInt(datos[10+2*i]),40,10,game);
                 bricks.add(brick);
                 contadori=11+2*i;
-            }
-            /*
-            int contAmigos=Integer.parseInt(datos[contadori]);
-            System.out.println(contadori+" "+contAmigos);
-            for(int h=0;h<contAmigos;h++){
-                Friend friend = new Friend(Integer.parseInt(datos[contadori+h+1]),Integer.parseInt(datos[contadori+h+2]), 1, 100, 100, game);
-                friends.add(friend); //la función add ya existe porque viene de la linkedlist
-            }
-            */
-            game.setNumVidas(vidas);
-            game.setScore(score);
+            }//cont of collisions
+            int contColisiones= Integer.parseInt(datos[contadori]);
+            //setting up the data into the game
+            game.setNumVidas(vidas);//set lives
+            game.setScore(score);//set score
             
             //Cargamos la bola
             ball = new Ball(xBall, yBall, xDirBall, yDirBall, 5, 5, game); //Ball(int x, int y, int xdir,int ydir, int width, int height, Game game)
@@ -128,8 +115,9 @@ public class ReadandWrite {
             paddle = new Paddle(xPaddle, yPaddle, 1, 40, 10, game); //Paddle(int x, int y, int direction, int width, int height, Game game)
             game.setBall(ball);
             
-            
+            //set the bricks
             game.setBricks(bricks);
+            //set the cont of collisions
             game.setContColisiones(contColisiones);
             //game.setFriends(friends);
             System.out.println("Se leyo  vidas = "+ vidas + " y score = " + score);

@@ -89,7 +89,7 @@ public abstract class Item {
         }
         return bStatus;
     }
-    public Rectangle getRect(int x, int y, int width, int height) {
+    public Rectangle getRect(int x, int y, int width, int height) {// getrectangle from position and dimentions
 
         return new Rectangle(x, y, width, height);
     }

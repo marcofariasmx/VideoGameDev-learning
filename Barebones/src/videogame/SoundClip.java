@@ -12,7 +12,7 @@ import java.net.URL;
 
 /**
  *
- * @author antoniomejorado
+ * @author Los marcos
  */
 public class SoundClip { 
                                                        

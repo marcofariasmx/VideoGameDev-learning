@@ -16,8 +16,8 @@ public class KeyManager implements KeyListener {
     
     public boolean left;    // flag to move left the player
     public boolean right;   // flag to move right the player
-    public boolean save;
-    public boolean load;
+    public boolean save;    //flag to  save
+    public boolean load;    //flag to load the game
 
     private boolean keys[];  // to store all the flags for every key
     
