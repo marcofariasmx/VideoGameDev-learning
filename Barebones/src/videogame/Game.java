@@ -50,7 +50,7 @@ public class Game implements Runnable {
         this.height = height;
         running = false;
         keyManager = new KeyManager();
-        this.lives=(int)(Math.random() * 2) + 1;
+        this.lives=(int)(Math.random() * 2) + 2;
         this.score=0;
         this.lost=0;
     }
@@ -65,6 +65,12 @@ public class Game implements Runnable {
     
     public int getNumVidas() {
         return lives;
+    }
+    public int getContColisiones(){
+        return contColisiones;
+    }
+    public void setContColisiones(int x){
+        contColisiones=x;
     }
     
     public void setNumVidas(int vidas){
@@ -192,13 +198,15 @@ public class Game implements Runnable {
                 System.out.println("Ya se PERDIÓ"); 
                 paddle.setX(830);
                 paddle.setY(855);
+                ball.setX(830);
+                ball.setY(855);
                 bricks.clear();
                 running=false;
             }
         }
         if (contColisiones==30){
             Assets.nice.play();
-            
+            bricks.clear();
         }
         for(Brick brick:bricks){
             brick.tick();
@@ -325,8 +333,8 @@ public class Game implements Runnable {
             }       
             paddle.render(g);
                 ball.render(g);
-                g.drawString(vidas + lives, 20, 15);
-                g.drawString(puntos + score, 220, 15);
+                g.drawString(vidas + lives, 20, 12);
+                g.drawString(puntos + score, 220, 12);
                 for (Brick brick: bricks){
                     if(!brick.isDestroyed()){
                         brick.render(g);

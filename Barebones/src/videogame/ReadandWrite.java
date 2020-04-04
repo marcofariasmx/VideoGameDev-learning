@@ -46,23 +46,28 @@ public class ReadandWrite {
             int yBall=ball.getY();
             int xDirBall = ball.getXDir();
             int yDirBall = ball.getYDir();
+            int contColisiones= game.getContColisiones();
             
             LinkedList <Brick> bricks = game.getBricks();
             
             //Capturamos datos iniciales como vidas, score y posición de la bola
             writer.print("" + vidas + "/" + score +"/"+xBall+"/"+yBall+"/"+xDirBall+"/"+yDirBall+"/"+xPaddle+"/"+yPaddle+"/");
             for (Brick brick: bricks){
-                contBricks++;
+                if(!brick.isDestroyed()){
+                    contBricks++;
+                }
             }
             
             //Capturamos los bricks que hay y sus posiciones
             writer.print(contBricks+"/");
             for (Brick brick: bricks){
-                xBrick=brick.getX();
-                yBrick=brick.getY();
-                writer.print( xBrick+ "/" +yBrick +"/");
+                if(!brick.isDestroyed()){
+                    xBrick=brick.getX();
+                    yBrick=brick.getY();
+                    writer.print( xBrick+ "/" +yBrick +"/");
+                }
             }
-            
+            writer.print(contColisiones+"/");
             writer.close();
         } catch (IOException ioe) {
             System.out.print("File Not found CALL 911");
@@ -80,7 +85,8 @@ public class ReadandWrite {
             Ball ball=game.getBall();
             Paddle paddle = game.getPaddle();
             
-            LinkedList <Brick> bricks=game.getBricks();
+            LinkedList <Brick> bricks;
+            bricks= new LinkedList();
             //LinkedList <Friend> friends=game.getFriends();
             FileReader file = new FileReader(strFileName);
             BufferedReader reader = new BufferedReader(file);
@@ -97,7 +103,7 @@ public class ReadandWrite {
             int xPaddle= Integer.parseInt(datos[6]);
             int yPaddle= Integer.parseInt(datos[7]);
             int contBricks= Integer.parseInt(datos[8]);
-            
+            int contColisiones= Integer.parseInt(datos[9]);
             for(int i=0; i<contBricks; i++){
                 Brick brick= new Brick(Integer.parseInt(datos[9+2*i]),Integer.parseInt(datos[10+2*i]),40,10,game);
                 bricks.add(brick);
@@ -124,6 +130,7 @@ public class ReadandWrite {
             
             
             game.setBricks(bricks);
+            game.setContColisiones(contColisiones);
             //game.setFriends(friends);
             System.out.println("Se leyo  vidas = "+ vidas + " y score = " + score);
             reader.close();

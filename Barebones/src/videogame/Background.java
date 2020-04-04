@@ -53,7 +53,7 @@ public class Background {
             this.animationPlay.tick(); // tick animation of running game
         }
     }
-    
+    //render cases
     public void render(Graphics g, int status) {
         if (status == 0) { // game is running
             g.drawImage(animationPlay.getCurrentFrame(), 0, 0, getWidth(), getHeight(), null); // paint animation of running game
