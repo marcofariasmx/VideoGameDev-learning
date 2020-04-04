@@ -91,6 +91,12 @@ public class Game implements Runnable {
     public void setBall(Ball ballToSet){
         ball=ballToSet;
     }
+    
+    //sets the ball to another ball
+    public void setPaddle(Paddle paddleToSet){
+        paddle = paddleToSet;
+    }
+    
     //gets the LL of bricks
     public LinkedList <Brick> getBricks(){
         return bricks;

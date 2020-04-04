@@ -113,7 +113,7 @@ public class ReadandWrite {
             
             //Cargamos el paddle
             paddle = new Paddle(xPaddle, yPaddle, 1, 40, 10, game); //Paddle(int x, int y, int direction, int width, int height, Game game)
-            game.setBall(ball);
+            game.setPaddle(paddle);
             
             //set the bricks
             game.setBricks(bricks);
